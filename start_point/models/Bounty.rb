@@ -1,4 +1,5 @@
 require('pg')
+require('pry')
 class Bounty
   attr_accessor :id, :name, :species, :bounty_value,
               :danger_level, :last_known_location,
@@ -51,6 +52,30 @@ class Bounty
     all_bounties = db.exec_prepared("select_all")
     db.close()
     return all_bounties.map { |bounty_hash| Bounty.new(bounty_hash) }
+  end
+
+  def Bounty.find_by_name(name)
+    db = PG.connect( { dbname: 'bounty_hunter', host: 'localhost' } )
+    a_sql = "SELECT * FROM bounties
+    WHERE name = $1 LIMIT 1
+    ;"
+    values = [name]
+    db.prepare("find_name", a_sql)
+    result = db.exec_prepared("find_name", values)
+    db.close()
+    bounty_object = Bounty.new(result.first)
+    return bounty_object
+  end
+
+  def Bounty.find_by_id(id)
+    db = PG.connect( { dbname: 'bounty_hunter', host: 'localhost' } )
+    a_sql = "SELECT * FROM bounties
+    WHERE id = $1 LIMIT 1"
+    values = [id]
+    db.prepare("find_id", a_sql)
+    result = db.exec_prepared("find_id", values)
+    db.close()
+    return Bounty.new(result.first)
   end
 
   def Bounty.delete_all()

@@ -1,4 +1,5 @@
 require_relative('./models/bounty')
+require('pry')
 
 bounty01_hash = {
   'name' => 'Han Solo',
@@ -43,21 +44,26 @@ bounty02 = Bounty.new(bounty02_hash)
 bounty03 = Bounty.new(bounty03_hash)
 bounty04 = Bounty.new(bounty04_hash)
 
-# Bounty.delete_table()
-# Bounty.create_table()
+Bounty.delete_table()
+Bounty.create_table()
 
-# bounty01.save()
-# bounty02.save()
-# bounty03.save()
-# bounty04.save()
+bounty01.save()
+bounty02.save()
+bounty03.save()
+bounty04.save()
 
-all_bounties_object = Bounty.all()
+# all_bounties_object = Bounty.all()
 # my_bounty = all_bounties_object.last
 # my_bounty.cashed_in = 'yes'
 # my_bounty.collected_by = 'Pawel'
 # my_bounty.update()
 
-deleting_bounty = all_bounties_object.first
-deleting_bounty.delete()
+# deleting_bounty = all_bounties_object.first
+# deleting_bounty.delete()
 
 # Bounty.delete_all()
+
+# bounty_found_by_name = Bounty.find_by_name("Chewbacca")
+# bounty_found_by_name.delete()
+# bounty_found_by_id = Bounty.find_by_id(3)
+# bounty_found_by_id.delete()
