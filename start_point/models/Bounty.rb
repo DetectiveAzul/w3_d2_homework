@@ -93,11 +93,12 @@ class Bounty
     homeworld, favorite_weapon, cashed_in, collected_by)
     VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    RETURNING id
     ;"
     values = [@name, @species, @bounty_value, @danger_level, @last_known_location,
     @homeworld, @favorite_weapon, @cashed_in, @collected_by]
     db.prepare("save_it",a_sql)
-    db.exec_prepared("save_it",values)
+    @id = db.exec_prepared("save_it",values)[0]["id"]
     db.close()
   end
 
