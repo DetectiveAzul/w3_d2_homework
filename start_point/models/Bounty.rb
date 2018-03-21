@@ -63,7 +63,7 @@ class Bounty
     db.prepare("find_name", a_sql)
     result = db.exec_prepared("find_name", values)
     db.close()
-    bounty_object = Bounty.new(result.first)
+    bounty_object = Bounty.new(result.first) unless result.first == nil
     return bounty_object
   end
 
@@ -75,7 +75,7 @@ class Bounty
     db.prepare("find_id", a_sql)
     result = db.exec_prepared("find_id", values)
     db.close()
-    return Bounty.new(result.first)
+    return Bounty.new(result.first) unless result.first == nil
   end
 
   def Bounty.delete_all()
